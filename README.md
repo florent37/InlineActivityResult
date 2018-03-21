@@ -6,7 +6,7 @@ No Activity Result
 
 **Work in progress**
 
-Simpliest way to ask runtime permissions on Android, choose your way : 
+Receive the activity result directly after the startActivityForResult with NoActivityResult, choose your way : 
 - [Kotlin](https://github.com/florent37/NoActivityResult#kotlin)
 - [Kotlin with Coroutines](https://github.com/florent37/NoActivityResult#kotlin-coroutines)
 - [RxJava](https://github.com/florent37/NoActivityResult#rxjava)
