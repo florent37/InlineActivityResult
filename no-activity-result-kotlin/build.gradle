@@ -1,0 +1,62 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion project.COMPILE_SDK
+    defaultConfig {
+        minSdkVersion project.MIN_SDK
+        targetSdkVersion project.TARGET_SDK
+        versionCode 1
+        versionName "1.0"
+    }
+
+    dexOptions {
+        preDexLibraries = false
+    }
+}
+
+dependencies {
+    implementation 'com.android.support:support-fragment:'+project.supportVersion
+
+    api project(':no-activity-result')
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.5'
+}
+
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = rootProject.ext.libraryName+'-kotlin'
+    orgName = 'florent37'
+
+    publishedGroupId = rootProject.ext.libraryGroup
+    libraryName = rootProject.ext.libraryDescription+' Kotlin'
+    artifact = rootProject.ext.libraryName+'-kotlin'
+
+    libraryDescription = rootProject.ext.libraryDescription+' Kotlin'
+
+    siteUrl = rootProject.ext.github
+    gitUrl = rootProject.ext.github+'.git'
+
+    libraryVersion = rootProject.ext.libraryVersion
+
+    developerId = 'florent37'
+    developerName = 'Florent Champigny'
+    developerEmail = 'champigny.florent@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+
+
+
+apply from: rootProject.file('gradle/install-v1.gradle')
+apply from: rootProject.file('gradle/bintray-android-v1.gradle')

@@ -1,0 +1,47 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion project.COMPILE_SDK
+    defaultConfig {
+        minSdkVersion project.MIN_SDK
+        targetSdkVersion project.TARGET_SDK
+        versionCode 1
+        versionName "1.0"
+    }
+
+    dexOptions {
+        preDexLibraries = false
+    }
+}
+
+dependencies {
+    implementation 'com.android.support:support-fragment:'+project.supportVersion
+}
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'runtime-permission'
+    orgName = 'florent37'
+
+    publishedGroupId = rootProject.ext.libraryGroup
+    libraryName = rootProject.ext.libraryDescription
+    artifact = rootProject.ext.libraryName
+
+    libraryDescription = rootProject.ext.libraryDescription
+
+    siteUrl = rootProject.ext.github
+    gitUrl = rootProject.ext.github+'.git'
+
+    libraryVersion = rootProject.ext.libraryVersion
+
+    developerId = 'florent37'
+    developerName = 'Florent Champigny'
+    developerEmail = 'champigny.florent@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+apply from: rootProject.file('gradle/install-v1.gradle')
+apply from: rootProject.file('gradle/bintray-android-v1.gradle')
