@@ -59,7 +59,7 @@ launch(UI) {
 
 [ ![Download](https://api.bintray.com/packages/florent37/maven/no-activity-result/images/download.svg) ](https://bintray.com/florent37/maven/no-activity-result/)
 ```groovy
-implementation 'com.github.florent37:NoActivityResult-kotlin:(last version)'
+implementation 'com.github.florent37:no-activity-result-kotlin:(last version)'
 ```
 
 # Kotlin
