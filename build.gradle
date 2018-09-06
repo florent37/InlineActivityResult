@@ -32,10 +32,10 @@ ext {
     targetCompatibilityVersion = JavaVersion.VERSION_1_8
     supportVersion = "27.0.2"
 
-    github = 'https://github.com/florent37/RuntimePermission'
+    github = 'https://github.com/florent37/NoActivityResult'
 
     libraryGroup = 'com.github.florent37'
-    libraryName = 'runtime-permission'
+    libraryName = 'no-activity-result'
     libraryVersion = "1.0.0"
-    libraryDescription = 'Runtime Permission'
+    libraryDescription = 'No Activity Result'
 }

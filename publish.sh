@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 ./gradlew clean assembleDebug install
 
-./gradlew :runtime-permission:install
-./gradlew :runtime-permission:bintrayUpload
+./gradlew :no-activity-result:install
+./gradlew :no-activity-result:bintrayUpload
 
-./gradlew :runtime-permission-kotlin:install
-./gradlew :runtime-permission-kotlin:bintrayUpload
+./gradlew :no-activity-result-kotlin:install
+./gradlew :no-activity-result-kotlin:bintrayUpload
 
-./gradlew :runtime-permission-rx:install
-./gradlew :runtime-permission-rx:bintrayUpload
+./gradlew :no-activity-result-rx:install
+./gradlew :no-activity-result-rx:bintrayUpload

@@ -20,7 +20,7 @@ dependencies {
 
 ext {
     bintrayRepo = 'maven'
-    bintrayName = 'runtime-permission'
+    bintrayName = rootProject.ext.libraryName
     orgName = 'florent37'
 
     publishedGroupId = rootProject.ext.libraryGroup
