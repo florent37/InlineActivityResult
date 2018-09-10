@@ -36,6 +36,6 @@ ext {
 
     libraryGroup = 'com.github.florent37'
     libraryName = 'no-activity-result'
-    libraryVersion = "1.0.0"
+    libraryVersion = "1.0.1"
     libraryDescription = 'No Activity Result'
 }
