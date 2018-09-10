@@ -19,7 +19,7 @@ public class ActivityResultFragment extends Fragment {
     private static final int REQUEST_CODE = 24;
 
     @Nullable
-    private WeakReference<ActivityResultListener> listener;
+    private ActivityResultListener listener;
 
     @Nullable
     private Intent intentToStart;
@@ -64,9 +64,7 @@ public class ActivityResultFragment extends Fragment {
 
         if (requestCode == REQUEST_CODE) {
             if (listener != null) {
-                final ActivityResultListener activityResultListener = listener.get();
-
-                activityResultListener.onActivityResult(requestCode, resultCode, data);
+                listener.onActivityResult(requestCode, resultCode, data);
 
                 getFragmentManager().beginTransaction()
                         .remove(this)
@@ -77,10 +75,7 @@ public class ActivityResultFragment extends Fragment {
 
     public ActivityResultFragment setListener(@Nullable ActivityResultListener listener) {
         if (listener != null) {
-            if (this.listener != null) {
-                this.listener.clear();
-            }
-            this.listener = new WeakReference<>(listener);
+            this.listener = listener;
         }
         return this;
     }
