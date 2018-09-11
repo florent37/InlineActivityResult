@@ -1,19 +1,19 @@
 Inline Activity Result
 ===================
 
-[![CircleCI](https://circleci.com/gh/florent37/NoActivityResult/tree/master.svg?style=svg)](https://circleci.com/gh/florent37/NoActivityResult/tree/master)
-[![Language](https://img.shields.io/badge/compatible-java%20%7C%20kotlin%20%7C%20rx-brightgreen.svg)](https://www.github.com/florent37/NoActivityResult)
+[![CircleCI](https://circleci.com/gh/florent37/InlineActivityResult/tree/master.svg?style=svg)](https://circleci.com/gh/florent37/InlineActivityResult/tree/master)
+[![Language](https://img.shields.io/badge/compatible-java%20%7C%20kotlin%20%7C%20rx-brightgreen.svg)](https://www.github.com/florent37/InlineActivityResult)
 
 **Work in progress**
 
-Receive the activity result directly after the startActivityForResult with NoActivityResult, choose your way : 
+Receive the activity result directly after the startActivityForResult with InlineActivityResult, choose your way : 
 - [Kotlin](https://github.com/florent37/InlineActivityResult#kotlin)
 - [Kotlin with Coroutines](https://github.com/florent37/InlineActivityResult#kotlin-coroutines)
 - [RxJava](https://github.com/florent37/InlineActivityResult#rxjava)
 - [Java8](https://github.com/florent37/InlineActivityResult#java8)
 - [Java7](https://github.com/florent37/InlineActivityResult#java7)
 
-**No need to override Activity or Fragment**`onActivityResult(code, permissions, result)`**using this library, you just have to execute NoActivityResult's methods** 
+**No need to override Activity or Fragment**`onActivityResult(code, permissions, result)`**using this library, you just have to execute InlineActivityResult's methods** 
 This will not cut your code flow
 
 # General Usage (cross language)
@@ -49,7 +49,7 @@ launch(UI) {
        //use the result, eg:
        val imageBitmap = result.data?.extras?.get("data") as Bitmap
        resultView.setImageBitmap(imageBitmap)
-   } catch (e: NoActivityResultException) {
+   } catch (e: InlineActivityResultException) {
 
    }
 }
@@ -91,8 +91,8 @@ new RxInlineActivityResult(this).request(new Intent(MediaStore.ACTION_IMAGE_CAPT
         Bitmap imageBitmap = (Bitmap) extras.get("data");
         resultView.setImageBitmap(imageBitmap);
     }, throwable -> {
-        if (throwable instanceof RxNoActivityResult.Error) {
-            final Result result = ((RxNoActivityResult.Error) throwable).getResult();
+        if (throwable instanceof RxInlineActivityResult.Error) {
+            final Result result = ((RxInlineActivityResult.Error) throwable).getResult();
 
         }
     })
