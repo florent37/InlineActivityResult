@@ -1,4 +1,4 @@
-No Activity Result
+Inline Activity Result
 ===================
 
 [![CircleCI](https://circleci.com/gh/florent37/NoActivityResult/tree/master.svg?style=svg)](https://circleci.com/gh/florent37/NoActivityResult/tree/master)
@@ -7,21 +7,21 @@ No Activity Result
 **Work in progress**
 
 Receive the activity result directly after the startActivityForResult with NoActivityResult, choose your way : 
-- [Kotlin](https://github.com/florent37/NoActivityResult#kotlin)
-- [Kotlin with Coroutines](https://github.com/florent37/NoActivityResult#kotlin-coroutines)
-- [RxJava](https://github.com/florent37/NoActivityResult#rxjava)
-- [Java8](https://github.com/florent37/NoActivityResult#java8)
-- [Java7](https://github.com/florent37/NoActivityResult#java7)
+- [Kotlin](https://github.com/florent37/InlineActivityResult#kotlin)
+- [Kotlin with Coroutines](https://github.com/florent37/InlineActivityResult#kotlin-coroutines)
+- [RxJava](https://github.com/florent37/InlineActivityResult#rxjava)
+- [Java8](https://github.com/florent37/InlineActivityResult#java8)
+- [Java7](https://github.com/florent37/InlineActivityResult#java7)
 
 **No need to override Activity or Fragment**`onActivityResult(code, permissions, result)`**using this library, you just have to execute NoActivityResult's methods** 
 This will not cut your code flow
 
 # General Usage (cross language)
 
-[ ![Download](https://api.bintray.com/packages/florent37/maven/no-activity-result/images/download.svg) ](https://bintray.com/florent37/maven/no-activity-result/)
+[ ![Download](https://api.bintray.com/packages/florent37/maven/inline-activity-result/images/download.svg) ](https://bintray.com/florent37/maven/inline-activity-result/)
 ```java
 dependencies {
-    implementation 'com.github.florent37:no-activity-result:(lastest version)'
+    implementation 'com.github.florent37:inline-activity-result:(lastest version)'
 }
 ```
 
@@ -57,9 +57,9 @@ launch(UI) {
 
 ### Download 
 
-[ ![Download](https://api.bintray.com/packages/florent37/maven/no-activity-result/images/download.svg) ](https://bintray.com/florent37/maven/no-activity-result/)
+[ ![Download](https://api.bintray.com/packages/florent37/maven/inline-activity-result/images/download.svg) ](https://bintray.com/florent37/maven/inline-activity-result/)
 ```groovy
-implementation 'com.github.florent37:no-activity-result-kotlin:(last version)'
+implementation 'com.github.florent37:inline-activity-result-kotlin:(last version)'
 ```
 
 # Kotlin
@@ -76,15 +76,15 @@ startForResult(Intent(MediaStore.ACTION_IMAGE_CAPTURE)) { result ->
 
 ### Download 
 
-[ ![Download](https://api.bintray.com/packages/florent37/maven/no-activity-result/images/download.svg) ](https://bintray.com/florent37/maven/no-activity-result/)
+[ ![Download](https://api.bintray.com/packages/florent37/maven/inline-activity-result/images/download.svg) ](https://bintray.com/florent37/maven/inline-activity-result/)
 ```groovy
-implementation 'com.github.florent37:no-activity-result-kotlin:(last version)'
+implementation 'com.github.florent37:inline-activity-result-kotlin:(last version)'
 ```
 
 # RxJava
 
 ```java
-new RxNoActivityResult(this).request(new Intent(MediaStore.ACTION_IMAGE_CAPTURE)))
+new RxInlineActivityResult(this).request(new Intent(MediaStore.ACTION_IMAGE_CAPTURE)))
     .subscribe(result -> {
         //use the result, eg:
         Bundle extras = result.getData().getExtras();
@@ -100,13 +100,13 @@ new RxNoActivityResult(this).request(new Intent(MediaStore.ACTION_IMAGE_CAPTURE)
 
 ### Download 
 ```groovy
-implementation 'com.github.florent37:no-activity-result-rx:(last version)'
+implementation 'com.github.florent37:inline-activity-result-rx:(last version)'
 ```
 
 # Java8
 
 ```java
-new NoActivityResult(this)
+new InlineActivityResult(this)
        .startForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE))
        .onSuccess(result -> {
            //use the result, eg:
@@ -121,9 +121,9 @@ new NoActivityResult(this)
 
 ### Download
  
-[ ![Download](https://api.bintray.com/packages/florent37/maven/no-activity-result/images/download.svg) ](https://bintray.com/florent37/maven/no-activity-result/)
+[ ![Download](https://api.bintray.com/packages/florent37/maven/inline-activity-result/images/download.svg) ](https://bintray.com/florent37/maven/inline-activity-result/)
 ```groovy
-implementation 'com.github.florent37:no-activity-result:(last version)'
+implementation 'com.github.florent37:inline-activity-result:(last version)'
 ```
  
 # Java7
