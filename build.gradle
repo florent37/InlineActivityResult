@@ -1,8 +1,11 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.2.30'
-    ext.coroutines_version = '0.22.5'
+
+    ext.kotlin_version = '1.2.50'
+    ext.coroutines_version = '0.25.3'
+    ext.rxjava = '2.2.2'
+
     repositories {
         google()
         jcenter()
@@ -32,10 +35,10 @@ ext {
     targetCompatibilityVersion = JavaVersion.VERSION_1_8
     supportVersion = "27.0.2"
 
-    github = 'https://github.com/florent37/NoActivityResult'
+    github = 'https://github.com/florent37/InlineActivityResult'
 
     libraryGroup = 'com.github.florent37'
-    libraryName = 'no-activity-result'
+    libraryName = 'inline-activity-result'
     libraryVersion = "1.0.1"
-    libraryDescription = 'No Activity Result'
+    libraryDescription = 'Inline Activity Result'
 }
