@@ -1,7 +1,6 @@
 Inline Activity Result
 ===================
 
-[![CircleCI](https://circleci.com/gh/florent37/InlineActivityResult/tree/master.svg?style=svg)](https://circleci.com/gh/florent37/InlineActivityResult/tree/master)
 [![Language](https://img.shields.io/badge/compatible-java%20%7C%20kotlin%20%7C%20rx-brightgreen.svg)](https://www.github.com/florent37/InlineActivityResult)
 
 **Work in progress**
