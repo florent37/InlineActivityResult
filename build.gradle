@@ -39,6 +39,6 @@ ext {
 
     libraryGroup = 'com.github.florent37'
     libraryName = 'inline-activity-result'
-    libraryVersion = "1.0.1"
+    libraryVersion = "1.0.0"
     libraryDescription = 'Inline Activity Result'
 }
