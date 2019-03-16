@@ -1,4 +1,4 @@
-package com.github.florent37.inlineactivityresult.kotlin.coroutines.experimental
+package com.github.florent37.inlineactivityresult.kotlin.coroutines
 
 import android.content.Intent
 import android.support.v4.app.Fragment
@@ -7,7 +7,9 @@ import com.github.florent37.inlineactivityresult.InlineActivityResult
 import com.github.florent37.inlineactivityresult.Result
 import com.github.florent37.inlineactivityresult.kotlin.InlineActivityException
 import com.github.florent37.inlineactivityresult.kotlin.InlineActivityResultException
-import kotlin.coroutines.experimental.suspendCoroutine
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 suspend fun FragmentActivity.startForResult(intent: Intent): Result = suspendCoroutine { continuation ->
     var resumed = false
