@@ -6,10 +6,11 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
 import com.github.florent37.inlineactivityresult.kotlin.InlineActivityResultException
-import com.github.florent37.inlineactivityresult.kotlin.coroutines.experimental.startForResult
+import com.github.florent37.inlineactivityresult.kotlin.coroutines.startForResult
 import kotlinx.android.synthetic.main.activity_request.*
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class MainActivityKotlinCoroutine : AppCompatActivity() {
 
@@ -22,7 +23,7 @@ class MainActivityKotlinCoroutine : AppCompatActivity() {
         }
     }
 
-    fun myMethod() = launch(UI) {
+    fun myMethod() = GlobalScope.launch(Dispatchers.Main) {
         try {
             val result = startForResult(Intent(MediaStore.ACTION_IMAGE_CAPTURE))
 

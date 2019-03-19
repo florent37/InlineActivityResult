@@ -24,12 +24,6 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
 }
 
-kotlin {
-    experimental {
-        coroutines "enable"
-    }
-}
-
 ext {
     bintrayRepo = 'maven'
     bintrayName = rootProject.ext.libraryName+'-kotlin'
