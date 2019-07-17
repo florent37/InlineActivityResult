@@ -52,9 +52,7 @@ public class ActivityResultFragment extends Fragment {
             startActivityForResult(intentToStart, REQUEST_CODE);
         } else {
             // this shouldn't happen, but just to be sure
-            getFragmentManager().beginTransaction()
-                    .remove(this)
-                    .commitAllowingStateLoss();
+            removeFragment();
         }
     }
 
@@ -65,11 +63,8 @@ public class ActivityResultFragment extends Fragment {
         if (requestCode == REQUEST_CODE) {
             if (listener != null) {
                 listener.onActivityResult(requestCode, resultCode, data);
-
-                getFragmentManager().beginTransaction()
-                        .remove(this)
-                        .commitAllowingStateLoss();
             }
+            removeFragment();
         }
     }
 
@@ -78,6 +73,12 @@ public class ActivityResultFragment extends Fragment {
             this.listener = listener;
         }
         return this;
+    }
+
+    private void removeFragment() {
+        getFragmentManager().beginTransaction()
+                .remove(this)
+                .commitAllowingStateLoss();
     }
 
     interface ActivityResultListener {
