@@ -16,7 +16,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support:support-fragment:'+project.supportVersion
+    implementation 'androidx.fragment:fragment:' + project.androidXFragments
 
     api project(':inline-activity-result')
 

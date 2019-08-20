@@ -1,8 +1,8 @@
 package com.github.florent37.inlineactivityresult.kotlin.coroutines
 
 import android.content.Intent
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.github.florent37.inlineactivityresult.InlineActivityResult
 import com.github.florent37.inlineactivityresult.Result
 import com.github.florent37.inlineactivityresult.kotlin.InlineActivityException

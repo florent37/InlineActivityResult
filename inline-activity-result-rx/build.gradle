@@ -16,7 +16,7 @@ android {
 
 dependencies {
     api project(':inline-activity-result')
-    implementation 'com.android.support:support-fragment:'+project.supportVersion
+    implementation 'androidx.fragment:fragment:' + project.androidXFragments
     implementation "io.reactivex.rxjava2:rxjava:"+project.rxjava
 }
 
