@@ -5,12 +5,8 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/InlineActivityResult.iml" filepath="$PROJECT_DIR$/.idea/InlineActivityResult.iml" />
       <module fileurl="file://$PROJECT_DIR$/NoActivityResult.iml" filepath="$PROJECT_DIR$/NoActivityResult.iml" />
       <module fileurl="file://$PROJECT_DIR$/inline-activity-result/inline-activity-result.iml" filepath="$PROJECT_DIR$/inline-activity-result/inline-activity-result.iml" />
-      <module fileurl="file://$PROJECT_DIR$/inline-activity-result/inline-activity-result.iml" filepath="$PROJECT_DIR$/inline-activity-result/inline-activity-result.iml" />
-      <module fileurl="file://$PROJECT_DIR$/inline-activity-result-kotlin/inline-activity-result-kotlin.iml" filepath="$PROJECT_DIR$/inline-activity-result-kotlin/inline-activity-result-kotlin.iml" />
       <module fileurl="file://$PROJECT_DIR$/inline-activity-result-kotlin/inline-activity-result-kotlin.iml" filepath="$PROJECT_DIR$/inline-activity-result-kotlin/inline-activity-result-kotlin.iml" />
       <module fileurl="file://$PROJECT_DIR$/inline-activity-result-rx/inline-activity-result-rx.iml" filepath="$PROJECT_DIR$/inline-activity-result-rx/inline-activity-result-rx.iml" />
-      <module fileurl="file://$PROJECT_DIR$/inline-activity-result-rx/inline-activity-result-rx.iml" filepath="$PROJECT_DIR$/inline-activity-result-rx/inline-activity-result-rx.iml" />
-      <module fileurl="file://$PROJECT_DIR$/sample/sample.iml" filepath="$PROJECT_DIR$/sample/sample.iml" />
       <module fileurl="file://$PROJECT_DIR$/sample/sample.iml" filepath="$PROJECT_DIR$/sample/sample.iml" />
     </modules>
   </component>

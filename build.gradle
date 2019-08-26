@@ -33,7 +33,7 @@ ext {
     MIN_SDK = 14
     sourceCompatibilityVersion = JavaVersion.VERSION_1_8
     targetCompatibilityVersion = JavaVersion.VERSION_1_8
-    supportVersion = "28.0.0"
+    androidXFragments = "1.0.0"
 
     github = 'https://github.com/florent37/InlineActivityResult'
 
