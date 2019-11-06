@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.github.florent37.inlineactivityresult.InlineActivityResult;
+import com.github.florent37.inlineactivityresult.request.Request;
 import com.github.florent37.inlineactivityresult.Result;
 import com.github.florent37.inlineactivityresult.callbacks.ActivityResultListener;
 
@@ -101,6 +102,86 @@ public class RxInlineActivityResult {
             @Override
             public void subscribe(final MaybeEmitter<Result> emitter) throws Exception {
                 inlineActivityResult.startForResult(intent, new ActivityResultListener() {
+                    @Override
+                    public void onSuccess(Result result) {
+                        emitter.onSuccess(result);
+                    }
+
+                    @Override
+                    public void onFailed(Result result) {
+                        emitter.onError(new Error(result));
+                    }
+                });
+            }
+        });
+    }
+
+    public Observable<Result> request(final Request request) {
+        return Observable.create(new ObservableOnSubscribe<Result>() {
+            @Override
+            public void subscribe(final ObservableEmitter<Result> emitter) throws Exception {
+                inlineActivityResult
+                        .startForResult(request, new ActivityResultListener() {
+                            @Override
+                            public void onSuccess(Result result) {
+                                emitter.onNext(result);
+                                emitter.onComplete();
+                            }
+
+                            @Override
+                            public void onFailed(Result result) {
+                                emitter.onError(new Error(result));
+                            }
+                        });
+            }
+        });
+    }
+
+    public Single<Result> requestAsSingle(final Request request) {
+        return Single.create(new SingleOnSubscribe<Result>() {
+            @Override
+            public void subscribe(final SingleEmitter<Result> emitter) throws Exception {
+                inlineActivityResult
+                        .startForResult(request, new ActivityResultListener() {
+                            @Override
+                            public void onSuccess(Result result) {
+                                emitter.onSuccess(result);
+                            }
+
+                            @Override
+                            public void onFailed(Result result) {
+                                emitter.onError(new Error(result));
+                            }
+                        });
+            }
+        });
+    }
+
+    public Flowable<Result> requestAsFlowable(final Request request) {
+        return Flowable.create(new FlowableOnSubscribe<Result>() {
+            @Override
+            public void subscribe(final FlowableEmitter<Result> emitter) throws Exception {
+                inlineActivityResult
+                        .startForResult(request, new ActivityResultListener() {
+                            @Override
+                            public void onSuccess(Result result) {
+                                emitter.onNext(result);
+                            }
+
+                            @Override
+                            public void onFailed(Result result) {
+                                emitter.onError(new Error(result));
+                            }
+                        });
+            }
+        }, BackpressureStrategy.LATEST);
+    }
+
+    public Maybe<Result> requestAsMaybe(final Request request) {
+        return Maybe.create(new MaybeOnSubscribe<Result>() {
+            @Override
+            public void subscribe(final MaybeEmitter<Result> emitter) throws Exception {
+                inlineActivityResult.startForResult(request, new ActivityResultListener() {
                     @Override
                     public void onSuccess(Result result) {
                         emitter.onSuccess(result);
