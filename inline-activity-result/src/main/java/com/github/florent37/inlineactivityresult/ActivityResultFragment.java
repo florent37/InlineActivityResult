@@ -82,5 +82,7 @@ public class ActivityResultFragment extends Fragment {
 
     interface ActivityResultListener {
         void onActivityResult(int requestCode, int resultCode, Intent data);
+
+        void error(Throwable throwable);
     }
 }
