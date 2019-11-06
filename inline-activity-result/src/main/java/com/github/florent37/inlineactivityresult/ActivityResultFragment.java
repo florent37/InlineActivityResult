@@ -78,7 +78,7 @@ public class ActivityResultFragment extends Fragment {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == REQUEST_CODE) {
@@ -97,9 +97,11 @@ public class ActivityResultFragment extends Fragment {
     }
 
     private void removeFragment() {
-        getFragmentManager().beginTransaction()
-                .remove(this)
-                .commitAllowingStateLoss();
+        if (getFragmentManager() != null) {
+            getFragmentManager().beginTransaction()
+                    .remove(this)
+                    .commitAllowingStateLoss();
+        }
     }
 
     interface ActivityResultListener {
