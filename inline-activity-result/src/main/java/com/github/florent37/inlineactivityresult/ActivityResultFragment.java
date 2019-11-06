@@ -7,6 +7,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.github.florent37.inlineactivityresult.request.Request;
+import com.github.florent37.inlineactivityresult.request.RequestFabric;
+
 /**
  * DO NOT USE THIS FRAGMENT DIRECTLY!
  * It's only here because fragments have to be public
@@ -18,18 +21,28 @@ public class ActivityResultFragment extends Fragment {
     private static final int REQUEST_CODE = 24;
 
     @Nullable
-    private ActivityResultListener listener;
+    private Request request;
 
     @Nullable
-    private Intent intentToStart;
+    private ActivityResultListener listener;
 
     public ActivityResultFragment() {
         setRetainInstance(true);
     }
 
     public static ActivityResultFragment newInstance(@NonNull final Intent intent) {
+        return newInstance(RequestFabric.create(intent));
+    }
+
+    /**
+     * New instance activity result fragment.
+     *
+     * @param request the request
+     * @return the activity result fragment
+     */
+    public static ActivityResultFragment newInstance(@NonNull final Request request) {
         final Bundle args = new Bundle();
-        args.putParcelable(INTENT_TO_START, intent);
+        args.putParcelable(INTENT_TO_START, request);
         final ActivityResultFragment fragment = new ActivityResultFragment();
         fragment.setArguments(args);
         return fragment;
@@ -40,15 +53,24 @@ public class ActivityResultFragment extends Fragment {
         super.onCreate(savedInstanceState);
         final Bundle arguments = getArguments();
         if (arguments != null) {
-            this.intentToStart = arguments.getParcelable(INTENT_TO_START);
+            this.request = arguments.getParcelable(INTENT_TO_START);
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (intentToStart != null) {
-            startActivityForResult(intentToStart, REQUEST_CODE);
+
+        if (request != null) {
+            try {
+                request.execute(this, REQUEST_CODE);
+            } catch (Exception e) {
+                e.printStackTrace();
+
+                if (listener != null) {
+                    listener.error(e);
+                }
+            }
         } else {
             // this shouldn't happen, but just to be sure
             removeFragment();
