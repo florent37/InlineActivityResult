@@ -6,16 +6,25 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 
+/**
+ * Fabric for create {@link Request} objects.
+ */
 public class RequestFabric {
 
     private RequestFabric() {
 
     }
 
+    /**
+     * Create request for call {@link android.app.Activity#startActivityForResult(Intent, int, Bundle)}.
+     */
     public static Request create(Intent intent) {
         return new RequestActivityForResult(intent, null);
     }
 
+    /**
+     * Create request for call {@link android.app.Activity#startActivityForResult(Intent, int, Bundle)}.
+     */
     public static Request create(Intent intent, @Nullable Bundle options) {
         return new RequestActivityForResult(intent, options);
     }

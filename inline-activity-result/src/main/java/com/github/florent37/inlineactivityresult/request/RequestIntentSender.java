@@ -38,21 +38,7 @@ public class RequestIntentSender implements Request {
     };
 
     /**
-     * For more information see {@link android.app.Activity#startIntentSenderForResult(IntentSender, int, Intent, int, int, int, Bundle)}
-     *
-     * @param intentSender The IntentSender to launch.
-     * @param fillInIntent If non-null, this will be provided as the
-     *                     intent parameter to {@link IntentSender#sendIntent}.
-     * @param flagsMask    Intent flags in the original IntentSender that you
-     *                     would like to change.
-     * @param flagsValues  Desired values for any bits set in
-     *                     <var>flagsMask</var>
-     * @param extraFlags   Always set to 0.
-     * @param options      Additional options for how the Activity should be started.
-     *                     See {@link android.content.Context#startActivity(Intent, Bundle)}
-     *                     Context.startActivity(Intent, Bundle)} for more details.  If options
-     *                     have also been supplied by the IntentSender, options given here will
-     *                     override any that conflict with those given by the IntentSender.
+     * For more information see {@link android.app.Activity#startIntentSenderForResult(IntentSender, int, Intent, int, int, int, Bundle)}.
      */
     public RequestIntentSender(IntentSender intentSender,
                                @Nullable Intent fillInIntent,

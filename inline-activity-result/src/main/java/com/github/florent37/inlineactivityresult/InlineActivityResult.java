@@ -19,6 +19,9 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Holds all callback listeners and methods for start requests.
+ */
 public class InlineActivityResult {
 
     private static final String TAG = "ACTIVITY_RESULT_FRAGMENT_WEEEEE";
@@ -60,6 +63,11 @@ public class InlineActivityResult {
         return new InlineActivityResult(fragment).startForResult(request, listener);
     }
 
+    /**
+     * Instantiates with activity.
+     *
+     * @param activity The activity, source of request.
+     */
     public InlineActivityResult(@Nullable final FragmentActivity activity) {
         if (activity != null) {
             this.activityReference = new WeakReference<>(activity);
@@ -68,6 +76,11 @@ public class InlineActivityResult {
         }
     }
 
+    /**
+     * Instantiates with fragment.
+     *
+     * @param fragment The fragment, source of request.
+     */
     public InlineActivityResult(@Nullable final Fragment fragment) {
         FragmentActivity activity = null;
         if (fragment != null) {
@@ -133,6 +146,12 @@ public class InlineActivityResult {
         return this;
     }
 
+    /**
+     * Add callback function on success result.
+     *
+     * @param callback The callback.
+     * @return The inline activity result.
+     */
     public InlineActivityResult onSuccess(@Nullable final SuccessCallback callback) {
         if (callback != null) {
             successCallbacks.add(callback);
@@ -140,6 +159,12 @@ public class InlineActivityResult {
         return this;
     }
 
+    /**
+     * Add callback function on fail result.
+     *
+     * @param callback The callback.
+     * @return The inline activity result.
+     */
     public InlineActivityResult onFail(@Nullable final FailCallback callback) {
         if (callback != null) {
             failCallbacks.add(callback);
