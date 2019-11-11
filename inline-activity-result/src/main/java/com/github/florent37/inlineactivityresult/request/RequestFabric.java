@@ -13,9 +13,16 @@ public class RequestFabric {
     }
 
     public static Request create(Intent intent) {
-        return new RequestActivityForResult(intent);
+        return new RequestActivityForResult(intent, null);
     }
 
+    public static Request create(Intent intent, @Nullable Bundle options) {
+        return new RequestActivityForResult(intent, options);
+    }
+
+    /**
+     * Create request for call {@link android.app.Activity#startIntentSenderForResult(IntentSender, int, Intent, int, int, int, Bundle)}.
+     */
     public static Request create(IntentSender intentSender,
                                  @Nullable Intent fillInIntent,
                                  int flagsMask,
