@@ -128,7 +128,7 @@ implementation 'com.github.florent37:inline-activity-result:(last version)'
 # Java7
 
 ```java
-startForResult(this, new Intent(MediaStore.ACTION_IMAGE_CAPTURE), new ActivityResultListener() {
+InlineActivityResult.startForResult(this, new Intent(MediaStore.ACTION_IMAGE_CAPTURE), new ActivityResultListener() {
       @Override
       public void onSuccess(Result result) {
           Bundle extras = result.getData().getExtras();
