@@ -34,12 +34,6 @@ public class ActivityResultFragment extends Fragment {
         return newInstance(RequestFabric.create(intent));
     }
 
-    /**
-     * New instance activity result fragment.
-     *
-     * @param request the request
-     * @return the activity result fragment
-     */
     public static ActivityResultFragment newInstance(@NonNull final Request request) {
         final Bundle args = new Bundle();
         args.putParcelable(INTENT_TO_START, request);
@@ -89,11 +83,10 @@ public class ActivityResultFragment extends Fragment {
         }
     }
 
-    public ActivityResultFragment setListener(@Nullable ActivityResultListener listener) {
+    void setListener(@Nullable ActivityResultListener listener) {
         if (listener != null) {
             this.listener = listener;
         }
-        return this;
     }
 
     private void removeFragment() {
