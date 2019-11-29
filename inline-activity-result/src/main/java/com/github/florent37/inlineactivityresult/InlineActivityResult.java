@@ -11,12 +11,17 @@ import androidx.fragment.app.FragmentActivity;
 import com.github.florent37.inlineactivityresult.callbacks.ActivityResultListener;
 import com.github.florent37.inlineactivityresult.callbacks.FailCallback;
 import com.github.florent37.inlineactivityresult.callbacks.SuccessCallback;
+import com.github.florent37.inlineactivityresult.request.Request;
+import com.github.florent37.inlineactivityresult.request.RequestFabric;
 
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Holds all callback listeners and methods for start requests.
+ */
 public class InlineActivityResult {
 
     private static final String TAG = "ACTIVITY_RESULT_FRAGMENT_WEEEEE";
@@ -34,17 +39,35 @@ public class InlineActivityResult {
         public void onActivityResult(int requestCode, int resultCode, Intent data) {
             onReceivedActivityResult(requestCode, resultCode, data);
         }
+
+        @Override
+        public void error(Throwable throwable) {
+            onReceivedActivityException(throwable);
+        }
     };
     //endregion
 
-    public static InlineActivityResult startForResult(final FragmentActivity activity, @Nullable final Intent intent, @Nullable final ActivityResultListener listener){
+    public static InlineActivityResult startForResult(final FragmentActivity activity, @Nullable final Intent intent, @Nullable final ActivityResultListener listener) {
         return new InlineActivityResult(activity).startForResult(intent, listener);
     }
 
-    public static InlineActivityResult startForResult(final Fragment fragment, @Nullable final Intent intent, @Nullable final ActivityResultListener listener){
+    public static InlineActivityResult startForResult(final Fragment fragment, @Nullable final Intent intent, @Nullable final ActivityResultListener listener) {
         return new InlineActivityResult(fragment).startForResult(intent, listener);
     }
 
+    public static InlineActivityResult startForResult(final FragmentActivity activity, @Nullable final Request request, @Nullable final ActivityResultListener listener) {
+        return new InlineActivityResult(activity).startForResult(request, listener);
+    }
+
+    public static InlineActivityResult startForResult(final Fragment fragment, @Nullable final Request request, @Nullable final ActivityResultListener listener) {
+        return new InlineActivityResult(fragment).startForResult(request, listener);
+    }
+
+    /**
+     * Instantiates with activity.
+     *
+     * @param activity The activity, source of request.
+     */
     public InlineActivityResult(@Nullable final FragmentActivity activity) {
         if (activity != null) {
             this.activityReference = new WeakReference<>(activity);
@@ -53,6 +76,11 @@ public class InlineActivityResult {
         }
     }
 
+    /**
+     * Instantiates with fragment.
+     *
+     * @param fragment The fragment, source of request.
+     */
     public InlineActivityResult(@Nullable final Fragment fragment) {
         FragmentActivity activity = null;
         if (fragment != null) {
@@ -84,21 +112,46 @@ public class InlineActivityResult {
         }
     }
 
-    public InlineActivityResult startForResult(@Nullable final Intent intent) {
-        if (intent != null) {
-            this.start(intent);
+    private void onReceivedActivityException(Throwable throwable) {
+        final Result result = new Result(this, throwable);
+
+        for (FailCallback callback : failCallbacks) {
+            callback.onFailed(result);
         }
-        return this;
+        for (ActivityResultListener listener : responseListeners) {
+            listener.onFailed(result);
+        }
+    }
+
+    public InlineActivityResult startForResult(@Nullable final Intent intent) {
+        return startForResult(RequestFabric.create(intent));
     }
 
     public InlineActivityResult startForResult(@Nullable final Intent intent, @Nullable final ActivityResultListener listener) {
-        if (intent != null && listener != null) {
-            this.responseListeners.add(listener);
-            this.start(intent);
+        return startForResult(RequestFabric.create(intent), listener);
+    }
+
+    public InlineActivityResult startForResult(@Nullable final Request request) {
+        if (request != null) {
+            this.start(request);
         }
         return this;
     }
 
+    public InlineActivityResult startForResult(@Nullable final Request request, @Nullable final ActivityResultListener listener) {
+        if (request != null && listener != null) {
+            this.responseListeners.add(listener);
+            this.start(request);
+        }
+        return this;
+    }
+
+    /**
+     * Add callback function on success result.
+     *
+     * @param callback The callback.
+     * @return The inline activity result.
+     */
     public InlineActivityResult onSuccess(@Nullable final SuccessCallback callback) {
         if (callback != null) {
             successCallbacks.add(callback);
@@ -106,6 +159,12 @@ public class InlineActivityResult {
         return this;
     }
 
+    /**
+     * Add callback function on fail result.
+     *
+     * @param callback The callback.
+     * @return The inline activity result.
+     */
     public InlineActivityResult onFail(@Nullable final FailCallback callback) {
         if (callback != null) {
             failCallbacks.add(callback);
@@ -113,7 +172,7 @@ public class InlineActivityResult {
         return this;
     }
 
-    private void start(@NonNull final Intent intent) {
+    private void start(@NonNull final Request request) {
         final FragmentActivity activity = activityReference.get();
         if (activity == null || activity.isFinishing()) {
             return;
@@ -126,7 +185,7 @@ public class InlineActivityResult {
         if (oldFragment != null) {
             oldFragment.setListener(listener);
         } else {
-            final ActivityResultFragment newFragment = ActivityResultFragment.newInstance(intent);
+            final ActivityResultFragment newFragment = ActivityResultFragment.newInstance(request);
             newFragment.setListener(listener);
 
             activity.runOnUiThread(new Runnable() {

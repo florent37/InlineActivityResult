@@ -1,46 +1,48 @@
-package com.github.florent37.inlineactivityresult.sample;
+package com.github.florent37.inlineactivityresult.sample.fragment;
 
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.github.florent37.inlineactivityresult.Result;
 import com.github.florent37.inlineactivityresult.request.Request;
 import com.github.florent37.inlineactivityresult.request.RequestFabric;
 import com.github.florent37.inlineactivityresult.rx.RxInlineActivityResult;
+import com.github.florent37.inlineactivityresult.sample.R;
 import com.jakewharton.rxbinding2.view.RxView;
 
 import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 
-public class MainActivityRx extends AppCompatActivity {
+public class MainFragmentRx extends Fragment {
 
     private ImageView resultView;
     private View requestView;
     private View requestIntentSenderView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_request);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.activity_request, null);
 
-        resultView = findViewById(R.id.resultView);
-        requestView = findViewById(R.id.requestView);
-        requestIntentSenderView = findViewById(R.id.requestIntentSenderView);
+        resultView = root.findViewById(R.id.resultView);
+        requestView = root.findViewById(R.id.requestView);
+        requestIntentSenderView = root.findViewById(R.id.requestIntentSenderView);
 
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
         setOnClick(requestView, $ -> new RxInlineActivityResult(this).request(intent));
 
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getContext(), 0, intent, 0);
 
         setOnClick(requestIntentSenderView, $ -> {
             Request request = RequestFabric.create(pendingIntent.getIntentSender(), null, 0, 0, 0, null);
@@ -48,9 +50,10 @@ public class MainActivityRx extends AppCompatActivity {
             return new RxInlineActivityResult(this).request(request);
         });
 
+        return root;
     }
 
-    void setOnClick(View view, Function<Object, ObservableSource<? extends Result>> mapper) {
+    private void setOnClick(View view, Function<Object, ObservableSource<? extends Result>> mapper) {
         RxView.clicks(view)
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())

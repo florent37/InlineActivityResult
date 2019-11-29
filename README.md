@@ -15,6 +15,8 @@ Receive the activity result directly after the startActivityForResult with Inlin
 **No need to override Activity or Fragment**`onActivityResult(code, permissions, result)`**using this library, you just have to execute InlineActivityResult's methods** 
 This will not cut your code flow
 
+Supports [startIntentSenderForResult](https://github.com/florent37/InlineActivityResult#startintentsenderforresult)
+
 # General Usage (cross language)
 
 [ ![Download](https://api.bintray.com/packages/florent37/maven/inline-activity-result/images/download.svg) ](https://bintray.com/florent37/maven/inline-activity-result/)
@@ -128,7 +130,7 @@ implementation 'com.github.florent37:inline-activity-result:(last version)'
 # Java7
 
 ```java
-startForResult(this, new Intent(MediaStore.ACTION_IMAGE_CAPTURE), new ActivityResultListener() {
+InlineActivityResult.startForResult(this, new Intent(MediaStore.ACTION_IMAGE_CAPTURE), new ActivityResultListener() {
       @Override
       public void onSuccess(Result result) {
           Bundle extras = result.getData().getExtras();
@@ -142,6 +144,29 @@ startForResult(this, new Intent(MediaStore.ACTION_IMAGE_CAPTURE), new ActivityRe
       }
 });
 ```
+
+# StartIntentSenderForResult
+Also supports [startIntentSenderForResult](https://developer.android.com/reference/android/app/Activity.html?hl=es#startIntentSenderForResult), as example:
+
+```java
+Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+PendingIntent pendingIntent = PendingIntent.getActivity(getBaseContext(), 0, intent, 0);
+
+Request request = RequestFabric.create(pendingIntent.getIntentSender(), null, 0, 0, 0, null);
+
+new InlineActivityResult(this)
+         .startForResult(request)
+         .onSuccess(result -> {
+             Bundle extras = result.getData().getExtras();
+             Bitmap imageBitmap = (Bitmap) extras.get("data");
+             resultView.setImageBitmap(imageBitmap);
+          })
+          .onFail(result -> {
+
+          });
+```
+
 
 # How to Contribute
 

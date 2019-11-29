@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.github.florent37.inlineactivityresult.sample">
 
-    <uses-feature android:name="android.hardware.camera"
+    <uses-feature
+        android:name="android.hardware.camera"
         android:required="true" />
 
     <uses-permission android:name="android.permission.CAMERA" />
@@ -14,24 +15,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
-            android:screenOrientation="portrait">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivityKotlinCoroutine"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".MainActivityKotlin"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".MainActivityRx"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".MainActivityJava8"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".MainActivityJava7"
-            android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivityKotlinCoroutine" />
+        <activity android:name=".MainActivityKotlin" />
+        <activity android:name=".MainActivityRx" />
+        <activity android:name=".MainActivityJava8" />
+        <activity android:name=".MainActivityJava7" />
     </application>
 
 </manifest>

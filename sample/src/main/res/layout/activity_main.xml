@@ -1,38 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp">
 
-    <Button
-        android:id="@+id/java7"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="Java7" />
+    <LinearLayout
+        android:id="@+id/menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/java8"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="Java8" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/rx"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="Rx" />
+            <Button
+                android:id="@+id/java7Activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Java7 activity" />
 
-    <Button
-        android:id="@+id/kotlin"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="Kotlin" />
+            <Button
+                android:id="@+id/java7Fragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Java7 fragment" />
 
-    <Button
-        android:id="@+id/kotlinCoroutine"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="KotlinCoroutine" />
+        </LinearLayout>
 
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/java8Activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Java8 activity" />
+
+            <Button
+                android:id="@+id/java8Fragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Java8 fragment" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/rxActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rx activity" />
+
+            <Button
+                android:id="@+id/rxFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rx fragment" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/kotlinActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kotlin activity" />
+
+            <Button
+                android:id="@+id/kotlinFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kotlin fragment" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/kotlinCoroutineActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="KotlinCoroutine activity" />
+
+            <Button
+                android:id="@+id/kotlinCoroutineFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="KotlinCoroutine fragment" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
