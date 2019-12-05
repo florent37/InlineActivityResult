@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 /**
- * Arguments storage for method {@link androidx.fragment.app.Fragment#startIntentSenderForResult(IntentSender, int, Intent, int, int, int, Bundle)}.
+ * Arguments storage for method {@link Fragment#startIntentSenderForResult(IntentSender, int, Intent, int, int, int, Bundle)}.
  */
 public class RequestIntentSender implements Request {
 
