@@ -19,9 +19,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
- * Start 2 Intends in different options: (1 and 2, no dependence in call) and (1 then 2, if 1 is successful)
+ * Start 2 Intents in different options: (1 and 2, no dependence in call) and (1 then 2, if 1 is successful)
  */
-class MultipleIntendsActivity : BaseActivity(), AbstractMultipleIntendsHolder {
+class MultipleIntentsActivity : BaseActivity(), AbstractMultipleIntentsHolder {
 
     override val tag: String = "MultipleActivity"
 
@@ -44,34 +44,49 @@ class MultipleIntendsActivity : BaseActivity(), AbstractMultipleIntendsHolder {
         resultView1 = findViewById(R.id.resultView1)
         resultView2 = findViewById(R.id.resultView2)
 
-        val startTwoIntends: Button = findViewById(R.id.startTwoIntends)
+        val startOneIntent: Button = findViewById(R.id.startOneIntent)
+        val startTwoIntents: Button = findViewById(R.id.startTwoIntents)
         val inActivity: CheckBox = findViewById(R.id.inActivity)
         val inFragment: CheckBox = findViewById(R.id.inFragment)
-        val startTwoIntendsNested: View = findViewById(R.id.startTwoIntendsNested)
-        val startTwoIntendsSeqCor: View = findViewById(R.id.startTwoIntendsSeqCor)
+        val startTwoIntentsNested: View = findViewById(R.id.startTwoIntentsNested)
+        val startTwoIntentsSeqCor: View = findViewById(R.id.startTwoIntentsSeqCor)
 
         val firstListener = object : ActivityResultListener {
             override fun onSuccess(result: Result?) {
-                StartIntentData.firstOnSuccess(tag, this@MultipleIntendsActivity, result)
+                StartIntentData.firstOnSuccess(tag, this@MultipleIntentsActivity, result)
             }
 
             override fun onFailed(result: Result?) {
-                StartIntentData.firstOnFail(tag, this@MultipleIntendsActivity, result)
+                StartIntentData.firstOnFail(tag, this@MultipleIntentsActivity, result)
             }
         }
 
         val secondListener = object : ActivityResultListener {
             override fun onSuccess(result: Result?) {
-                StartIntentData.secondOnSuccess(tag, this@MultipleIntendsActivity, result)
+                StartIntentData.secondOnSuccess(tag, this@MultipleIntentsActivity, result)
             }
 
             override fun onFailed(result: Result?) {
-                StartIntentData.secondOnFail(tag, this@MultipleIntendsActivity, result)
+                StartIntentData.secondOnFail(tag, this@MultipleIntentsActivity, result)
+            }
+        }
+
+        // start 1
+        startOneIntent.setOnClickListener {
+            resultView1?.setImageResource(0)
+            resultView2?.setImageResource(0)
+
+            if (inActivity.isChecked) {
+                setText("starting from activity....", false)
+
+                InlineActivityResult.startForResult(this, StartIntentData.firstIntent, firstListener)
+            } else {
+                this.openFragment(FragmentOneIntentTask())
             }
         }
 
         // start 1 and 2
-        startTwoIntends.setOnClickListener {
+        startTwoIntents.setOnClickListener {
             resultView1?.setImageResource(0)
             resultView2?.setImageResource(0)
 
@@ -86,7 +101,7 @@ class MultipleIntendsActivity : BaseActivity(), AbstractMultipleIntendsHolder {
         }
 
         // start 1 then 2, if 1 is successful
-        startTwoIntendsNested.setOnClickListener {
+        startTwoIntentsNested.setOnClickListener {
             resultView1?.setImageResource(0)
             resultView2?.setImageResource(0)
 
@@ -95,21 +110,21 @@ class MultipleIntendsActivity : BaseActivity(), AbstractMultipleIntendsHolder {
 
                 InlineActivityResult.startForResult(this, StartIntentData.firstIntent, object : ActivityResultListener {
                     override fun onSuccess(result: Result?) {
-                        StartIntentData.firstOnSuccess(tag, this@MultipleIntendsActivity, result)
+                        StartIntentData.firstOnSuccess(tag, this@MultipleIntentsActivity, result)
 
-                        InlineActivityResult.startForResult(this@MultipleIntendsActivity, StartIntentData.secondIntent, object : ActivityResultListener {
+                        InlineActivityResult.startForResult(this@MultipleIntentsActivity, StartIntentData.secondIntent, object : ActivityResultListener {
                             override fun onSuccess(result: Result?) {
-                                StartIntentData.secondOnSuccess(tag, this@MultipleIntendsActivity, result)
+                                StartIntentData.secondOnSuccess(tag, this@MultipleIntentsActivity, result)
                             }
 
                             override fun onFailed(result: Result?) {
-                                StartIntentData.secondOnFail(tag, this@MultipleIntendsActivity, result)
+                                StartIntentData.secondOnFail(tag, this@MultipleIntentsActivity, result)
                             }
                         })
                     }
 
                     override fun onFailed(result: Result?) {
-                        StartIntentData.firstOnFail(tag, this@MultipleIntendsActivity, result)
+                        StartIntentData.firstOnFail(tag, this@MultipleIntentsActivity, result)
                     }
 
                 })
@@ -119,7 +134,7 @@ class MultipleIntendsActivity : BaseActivity(), AbstractMultipleIntendsHolder {
         }
 
         // start 1 and 2 in coroutine scope
-        startTwoIntendsSeqCor.setOnClickListener {
+        startTwoIntentsSeqCor.setOnClickListener {
             setText("starting from activity....", false)
 
             resultView1?.setImageResource(0)
@@ -146,17 +161,17 @@ class MultipleIntendsActivity : BaseActivity(), AbstractMultipleIntendsHolder {
         val secondIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
 
         this.startForResult(firstIntent) { result ->
-            StartIntentData.firstOnSuccess(tag, this@MultipleIntendsActivity, result)
+            StartIntentData.firstOnSuccess(tag, this@MultipleIntentsActivity, result)
         }.onFailed { result ->
-            StartIntentData.firstOnFail(tag, this@MultipleIntendsActivity, result)
+            StartIntentData.firstOnFail(tag, this@MultipleIntentsActivity, result)
         }
 
         delay(1000)
 
         this.startForResult(secondIntent) { result ->
-            StartIntentData.secondOnSuccess(tag, this@MultipleIntendsActivity, result)
+            StartIntentData.secondOnSuccess(tag, this@MultipleIntentsActivity, result)
         }.onFailed { result ->
-            StartIntentData.secondOnFail(tag, this@MultipleIntendsActivity, result)
+            StartIntentData.secondOnFail(tag, this@MultipleIntentsActivity, result)
         }
 
     }

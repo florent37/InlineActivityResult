@@ -6,7 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 
 @SuppressLint("SetTextI18n")
-interface AbstractMultipleIntendsHolder : Viewer {
+interface AbstractMultipleIntentsHolder : Viewer {
 
     var textView: TextView?
 

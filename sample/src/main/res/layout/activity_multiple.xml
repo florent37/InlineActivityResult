@@ -20,22 +20,28 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/startTwoIntends"
+                android:id="@+id/startOneIntent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Start two intends (first and second)" />
+                android:text="Start one intent" />
 
             <Button
-                android:id="@+id/startTwoIntendsNested"
+                android:id="@+id/startTwoIntents"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Start two intends (first then second)" />
+                android:text="Start two intents (first and second)" />
 
             <Button
-                android:id="@+id/startTwoIntendsSeqCor"
+                android:id="@+id/startTwoIntentsNested"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Start two intends (first and second, with Coroutine in Activity)" />
+                android:text="Start two intents (first then second)" />
+
+            <Button
+                android:id="@+id/startTwoIntentsSeqCor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Start two intents (first and second, with Coroutine in Activity)" />
 
         </LinearLayout>
 

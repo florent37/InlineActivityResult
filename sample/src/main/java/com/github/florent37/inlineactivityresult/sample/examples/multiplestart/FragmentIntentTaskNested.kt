@@ -5,9 +5,9 @@ import com.github.florent37.inlineactivityresult.Result
 import com.github.florent37.inlineactivityresult.callbacks.ActivityResultListener
 
 /**
- * Example of fragment, start First then Second intend (if First is successful)
+ * Example of fragment, start First then Second intent (if First is successful)
  */
-class FragmentIntentTaskNested : TwoIntendsFragment() {
+class FragmentIntentTaskNested : TwoIntentsFragment() {
 
     override val fragmentTag: String = "FragmentTaskNested"
 

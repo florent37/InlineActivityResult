@@ -8,7 +8,7 @@ import android.util.Log
 import com.github.florent37.inlineactivityresult.Result
 
 /**
- * Info about intends and listeners
+ * Info about intents and listeners
  */
 object StartIntentData {
 

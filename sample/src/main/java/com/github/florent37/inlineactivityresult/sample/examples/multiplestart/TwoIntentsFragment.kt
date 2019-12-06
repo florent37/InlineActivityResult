@@ -12,9 +12,9 @@ import androidx.fragment.app.Fragment
 import com.github.florent37.inlineactivityresult.sample.R
 
 /**
- * Abstract class, that start 2 intends
+ * Abstract class, that start 2 intents
  */
-abstract class TwoIntendsFragment : Fragment(), AbstractMultipleIntendsHolder {
+abstract class TwoIntentsFragment : Fragment(), AbstractMultipleIntentsHolder {
 
     abstract val fragmentTag: String
 

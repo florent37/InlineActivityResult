@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.github.florent37.inlineactivityresult.sample.R
 import com.github.florent37.inlineactivityresult.sample.examples.common.BaseActivity
-import com.github.florent37.inlineactivityresult.sample.examples.multiplestart.MultipleIntendsActivity
+import com.github.florent37.inlineactivityresult.sample.examples.multiplestart.MultipleIntentsActivity
 import com.github.florent37.inlineactivityresult.sample.examples.standardbehavior.StandardActivity
 
 class ExamplesActivity : BaseActivity() {
@@ -23,7 +23,7 @@ class ExamplesActivity : BaseActivity() {
         }
 
         findViewById<View>(R.id.startMultipleActivity).setOnClickListener {
-            open(MultipleIntendsActivity::class.java)
+            open(MultipleIntentsActivity::class.java)
         }
     }
 
