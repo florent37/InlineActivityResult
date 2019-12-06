@@ -87,18 +87,6 @@ public class ActivityResultFragment extends Fragment {
         }
     }
 
-    public void setRequest(@NonNull Request request) {
-        this.request = request;
-
-        saveArguments();
-    }
-
-    public void setListener(@Nullable ActivityResultListener listener) {
-        if (listener != null) {
-            this.listener = listener;
-        }
-    }
-
     public void executeRequest() {
         if (request != null) {
             try {
@@ -118,6 +106,18 @@ public class ActivityResultFragment extends Fragment {
                 listener.error(new NullPointerException("request is empty"));
             }
             removeFragment();
+        }
+    }
+
+    private void setRequest(@NonNull Request request) {
+        this.request = request;
+
+        saveArguments();
+    }
+
+    private void setListener(@Nullable ActivityResultListener listener) {
+        if (listener != null) {
+            this.listener = listener;
         }
     }
 
