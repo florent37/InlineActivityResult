@@ -1,7 +1,7 @@
 package com.github.florent37.inlineactivityresult.sample.examples.multiplestart
 
-import android.content.ContentResolver
 import android.content.Intent
+import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import android.widget.Button
@@ -13,7 +13,7 @@ import com.github.florent37.inlineactivityresult.Result
 import com.github.florent37.inlineactivityresult.callbacks.ActivityResultListener
 import com.github.florent37.inlineactivityresult.kotlin.startForResult
 import com.github.florent37.inlineactivityresult.sample.R
-import com.github.florent37.inlineactivityresult.sample.examples.ExamplesActivity
+import com.github.florent37.inlineactivityresult.sample.examples.common.BaseActivity
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -21,45 +21,52 @@ import kotlinx.coroutines.launch
 /**
  * Start 2 Intends in different options: (1 and 2, no dependence in call) and (1 then 2, if 1 is successful)
  */
-class TwoIntendsExample(private val activity: ExamplesActivity, val tag: String) : AbstractMultipleIntendsHolder {
+class MultipleIntendsActivity : BaseActivity(), AbstractMultipleIntendsHolder {
+
+    override val tag: String = "MultipleActivity"
+
+    override val fragmentTag: String = "MULTIPLEFRAGMENT"
 
     override var textView: TextView? = null
     override var resultView1: ImageView? = null
     override var resultView2: ImageView? = null
-    override fun getContentResolver(): ContentResolver? {
-        return activity.contentResolver
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        createView()
     }
 
-    fun onCreate() {
-        activity.setContentView(R.layout.activity_example)
+    private fun createView() {
+        setContentView(R.layout.activity_multiple)
 
-        textView = activity.findViewById(R.id.textView)
-        resultView1 = activity.findViewById(R.id.resultView1)
-        resultView2 = activity.findViewById(R.id.resultView2)
+        textView = findViewById(R.id.textView)
+        resultView1 = findViewById(R.id.resultView1)
+        resultView2 = findViewById(R.id.resultView2)
 
-        val startTwoIntends: Button = activity.findViewById(R.id.startTwoIntends)
-        val inActivity: CheckBox = activity.findViewById(R.id.inActivity)
-        val inFragment: CheckBox = activity.findViewById(R.id.inFragment)
-        val startTwoIntendsNested: View = activity.findViewById(R.id.startTwoIntendsNested)
-        val startTwoIntendsSeqCor: View = activity.findViewById(R.id.startTwoIntendsSeqCor)
+        val startTwoIntends: Button = findViewById(R.id.startTwoIntends)
+        val inActivity: CheckBox = findViewById(R.id.inActivity)
+        val inFragment: CheckBox = findViewById(R.id.inFragment)
+        val startTwoIntendsNested: View = findViewById(R.id.startTwoIntendsNested)
+        val startTwoIntendsSeqCor: View = findViewById(R.id.startTwoIntendsSeqCor)
 
         val firstListener = object : ActivityResultListener {
             override fun onSuccess(result: Result?) {
-                StartIntentData.firstOnSuccess(tag, this@TwoIntendsExample, result)
+                StartIntentData.firstOnSuccess(tag, this@MultipleIntendsActivity, result)
             }
 
             override fun onFailed(result: Result?) {
-                StartIntentData.firstOnFail(tag, this@TwoIntendsExample, result)
+                StartIntentData.firstOnFail(tag, this@MultipleIntendsActivity, result)
             }
         }
 
         val secondListener = object : ActivityResultListener {
             override fun onSuccess(result: Result?) {
-                StartIntentData.secondOnSuccess(tag, this@TwoIntendsExample, result)
+                StartIntentData.secondOnSuccess(tag, this@MultipleIntendsActivity, result)
             }
 
             override fun onFailed(result: Result?) {
-                StartIntentData.secondOnFail(tag, this@TwoIntendsExample, result)
+                StartIntentData.secondOnFail(tag, this@MultipleIntendsActivity, result)
             }
         }
 
@@ -71,10 +78,10 @@ class TwoIntendsExample(private val activity: ExamplesActivity, val tag: String)
             if (inActivity.isChecked) {
                 setText("starting from activity....", false)
 
-                InlineActivityResult.startForResult(activity, StartIntentData.firstIntent, firstListener)
-                InlineActivityResult.startForResult(activity, StartIntentData.secondIntent, secondListener)
+                InlineActivityResult.startForResult(this, StartIntentData.firstIntent, firstListener)
+                InlineActivityResult.startForResult(this, StartIntentData.secondIntent, secondListener)
             } else {
-                activity.openFragment(FragmentIntentTask())
+                this.openFragment(FragmentIntentTask())
             }
         }
 
@@ -86,28 +93,28 @@ class TwoIntendsExample(private val activity: ExamplesActivity, val tag: String)
             if (inActivity.isChecked) {
                 setText("starting from activity....", false)
 
-                InlineActivityResult.startForResult(activity, StartIntentData.firstIntent, object : ActivityResultListener {
+                InlineActivityResult.startForResult(this, StartIntentData.firstIntent, object : ActivityResultListener {
                     override fun onSuccess(result: Result?) {
-                        StartIntentData.firstOnSuccess(tag, this@TwoIntendsExample, result)
+                        StartIntentData.firstOnSuccess(tag, this@MultipleIntendsActivity, result)
 
-                        InlineActivityResult.startForResult(activity, StartIntentData.secondIntent, object : ActivityResultListener {
+                        InlineActivityResult.startForResult(this@MultipleIntendsActivity, StartIntentData.secondIntent, object : ActivityResultListener {
                             override fun onSuccess(result: Result?) {
-                                StartIntentData.secondOnSuccess(tag, this@TwoIntendsExample, result)
+                                StartIntentData.secondOnSuccess(tag, this@MultipleIntendsActivity, result)
                             }
 
                             override fun onFailed(result: Result?) {
-                                StartIntentData.secondOnFail(tag, this@TwoIntendsExample, result)
+                                StartIntentData.secondOnFail(tag, this@MultipleIntendsActivity, result)
                             }
                         })
                     }
 
                     override fun onFailed(result: Result?) {
-                        StartIntentData.firstOnFail(tag, this@TwoIntendsExample, result)
+                        StartIntentData.firstOnFail(tag, this@MultipleIntendsActivity, result)
                     }
 
                 })
             } else {
-                activity.openFragment(FragmentIntentTaskNested())
+                this.openFragment(FragmentIntentTaskNested())
             }
         }
 
@@ -138,18 +145,18 @@ class TwoIntendsExample(private val activity: ExamplesActivity, val tag: String)
         val firstIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         val secondIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
 
-        activity.startForResult(firstIntent) { result ->
-            StartIntentData.firstOnSuccess(tag, this@TwoIntendsExample, result)
+        this.startForResult(firstIntent) { result ->
+            StartIntentData.firstOnSuccess(tag, this@MultipleIntendsActivity, result)
         }.onFailed { result ->
-            StartIntentData.firstOnFail(tag, this@TwoIntendsExample, result)
+            StartIntentData.firstOnFail(tag, this@MultipleIntendsActivity, result)
         }
 
         delay(1000)
 
-        activity.startForResult(secondIntent) { result ->
-            StartIntentData.secondOnSuccess(tag, this@TwoIntendsExample, result)
+        this.startForResult(secondIntent) { result ->
+            StartIntentData.secondOnSuccess(tag, this@MultipleIntendsActivity, result)
         }.onFailed { result ->
-            StartIntentData.secondOnFail(tag, this@TwoIntendsExample, result)
+            StartIntentData.secondOnFail(tag, this@MultipleIntendsActivity, result)
         }
 
     }

@@ -1,77 +1,32 @@
 package com.github.florent37.inlineactivityresult.sample.examples
 
 import android.os.Bundle
-import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import com.github.florent37.inlineactivityresult.sample.examples.multiplestart.TwoIntendsExample
-import com.github.florent37.runtimepermission.RuntimePermission
+import android.view.View
+import com.github.florent37.inlineactivityresult.sample.R
+import com.github.florent37.inlineactivityresult.sample.examples.common.BaseActivity
+import com.github.florent37.inlineactivityresult.sample.examples.multiplestart.MultipleIntendsActivity
+import com.github.florent37.inlineactivityresult.sample.examples.standardbehavior.StandardActivity
 
-class ExamplesActivity : AppCompatActivity() {
+class ExamplesActivity : BaseActivity() {
 
-    private val tag: String = "ExamplesActivity"
+    override val tag: String = "ExamplesActivity"
 
-    private val fragmentTag: String = "EXAMPLEFRAGMENT"
+    override val fragmentTag: String = "EXAMPLEFRAGMENT"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Log.e(tag, "onCreate $this")
+        setContentView(R.layout.activity_example)
 
-        TwoIntendsExample(this, tag).onCreate()
-    }
+        findViewById<View>(R.id.startNormalActivity).setOnClickListener {
+            open(StandardActivity::class.java)
+        }
 
-    override fun onResume() {
-        super.onResume()
-
-        Log.e(tag, "onResume $this")
-    }
-
-    override fun onPause() {
-        super.onPause()
-
-        Log.e(tag, "onPause $this")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-
-        Log.e(tag, "onDestroy $this")
-    }
-
-    override fun onBackPressed() {
-        val visibleFragments = supportFragmentManager.fragments.filter { it.tag.equals(fragmentTag) && it.isVisible }
-
-        if (visibleFragments.isEmpty()) {
-            super.onBackPressed()
-        } else {
-            visibleFragments.forEach { removeFragment(it) }
+        findViewById<View>(R.id.startMultipleActivity).setOnClickListener {
+            open(MultipleIntendsActivity::class.java)
         }
     }
 
-    fun openFragment(fragment: Fragment) {
-        RuntimePermission.askPermission(this)
-                .onAccepted {
-                    setFragment(fragment)
-                }
-                .ask()
-    }
-
-    private fun setFragment(fragment: Fragment) {
-        with(supportFragmentManager.beginTransaction()) {
-            replace(android.R.id.content, fragment, fragmentTag)
-
-            commit()
-        }
-    }
-
-    private fun removeFragment(fragment: Fragment) {
-        with(supportFragmentManager.beginTransaction()) {
-            remove(fragment)
-
-            commit()
-        }
-    }
 
 }
 
