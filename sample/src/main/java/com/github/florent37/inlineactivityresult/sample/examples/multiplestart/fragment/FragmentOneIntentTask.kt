@@ -1,8 +1,9 @@
-package com.github.florent37.inlineactivityresult.sample.examples.multiplestart
+package com.github.florent37.inlineactivityresult.sample.examples.multiplestart.fragment
 
 import com.github.florent37.inlineactivityresult.InlineActivityResult
 import com.github.florent37.inlineactivityresult.Result
 import com.github.florent37.inlineactivityresult.callbacks.ActivityResultListener
+import com.github.florent37.inlineactivityresult.sample.examples.multiplestart.StartIntentData
 
 /**
  * Example of fragment, start one intent

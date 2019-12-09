@@ -1,4 +1,4 @@
-package com.github.florent37.inlineactivityresult.sample.examples.multiplestart
+package com.github.florent37.inlineactivityresult.sample.examples.multiplestart.fragment
 
 import android.content.ContentResolver
 import android.os.Bundle
@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.github.florent37.inlineactivityresult.sample.R
+import com.github.florent37.inlineactivityresult.sample.examples.multiplestart.AbstractMultipleIntentsHolder
 
 /**
  * Abstract class, that start 2 intents

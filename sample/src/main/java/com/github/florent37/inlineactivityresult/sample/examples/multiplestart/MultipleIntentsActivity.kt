@@ -3,6 +3,7 @@ package com.github.florent37.inlineactivityresult.sample.examples.multiplestart
 import android.content.Intent
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.CheckBox
@@ -14,6 +15,11 @@ import com.github.florent37.inlineactivityresult.callbacks.ActivityResultListene
 import com.github.florent37.inlineactivityresult.kotlin.startForResult
 import com.github.florent37.inlineactivityresult.sample.R
 import com.github.florent37.inlineactivityresult.sample.examples.common.BaseActivity
+import com.github.florent37.inlineactivityresult.sample.examples.multiplestart.fragment.FragmentIntentTask
+import com.github.florent37.inlineactivityresult.sample.examples.multiplestart.fragment.FragmentIntentTaskNested
+import com.github.florent37.inlineactivityresult.sample.examples.multiplestart.fragment.FragmentOneIntentTask
+import com.github.florent37.inlineactivityresult.sample.examples.multiplestart.fragment.FragmentStartProxyResultTask
+import com.github.florent37.inlineactivityresult.sample.examples.request.ProxyResultActivity
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -49,6 +55,7 @@ class MultipleIntentsActivity : BaseActivity(), AbstractMultipleIntentsHolder {
         val inActivity: CheckBox = findViewById(R.id.inActivity)
         val inFragment: CheckBox = findViewById(R.id.inFragment)
         val startTwoIntentsNested: View = findViewById(R.id.startTwoIntentsNested)
+        val startStingResultFromProxy: View = findViewById(R.id.startStingResultFromProxy)
         val startTwoIntentsSeqCor: View = findViewById(R.id.startTwoIntentsSeqCor)
 
         val firstListener = object : ActivityResultListener {
@@ -130,6 +137,26 @@ class MultipleIntentsActivity : BaseActivity(), AbstractMultipleIntentsHolder {
                 })
             } else {
                 this.openFragment(FragmentIntentTaskNested())
+            }
+        }
+
+        startStingResultFromProxy.setOnClickListener {
+            if (inActivity.isChecked) {
+                setText("starting ProxyResultActivity from activity....", false)
+
+                startForResult(Intent(this, ProxyResultActivity::class.java)) { result ->
+                    val resultString = result.data?.getStringExtra(ProxyResultActivity.REQUEST_KEY)
+
+                    setText("|StingResultFromProxy OK resultCode ${result.resultCode}, resultString $resultString|", true)
+                }.onFailed { result ->
+                    result.cause?.printStackTrace()
+
+                    Log.i(tag, "First resultCode ${result.resultCode}, ${result.data}")
+
+                    setText("|StingResultFromProxy Fail resultCode ${result.resultCode}, Intent ${result.data}|", true)
+                }
+            } else {
+                this.openFragment(FragmentStartProxyResultTask())
             }
         }
 
