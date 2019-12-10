@@ -2,7 +2,6 @@ package com.github.florent37.inlineactivityresult;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -51,22 +50,11 @@ public class ActivityResultFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         loadArguments();
-
-        Log.e("ResultFragment", "onCreate " + this);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        Log.e("ResultFragment", "onDestroy " + this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
-        Log.e("ResultFragment", "onResume " + this);
 
         executeRequest();
     }
@@ -74,9 +62,6 @@ public class ActivityResultFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        Log.e("ResultFragment", "onActivityResult requestCode=" + requestCode + ", resultCode=" + resultCode + ", data=" + data);
-        Log.e("ResultFragment", "onActivityResult listener=" + listener);
 
         if (requestCode == REQUEST_CODE) {
             if (listener != null) {
