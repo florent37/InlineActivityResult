@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:id="@+id/menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="50dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/startNormalActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Open activity with standard startActivityForResult" />
+
+        <Button
+            android:id="@+id/startMultipleActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Open multiple intent example" />
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

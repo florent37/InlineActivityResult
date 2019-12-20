@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
 import androidx.fragment.app.Fragment;
 
 import com.github.florent37.inlineactivityresult.request.Request;
@@ -14,11 +15,12 @@ import com.github.florent37.inlineactivityresult.request.RequestFabric;
  * DO NOT USE THIS FRAGMENT DIRECTLY!
  * It's only here because fragments have to be public
  */
+@RestrictTo(RestrictTo.Scope.LIBRARY)
 public class ActivityResultFragment extends Fragment {
 
-    public static final String INTENT_TO_START = "INTENT_TO_START";
+    private static final String INTENT_TO_START = "INTENT_TO_START";
 
-    private static final int REQUEST_CODE = 24;
+    private static final int REQUEST_CODE = 24; // [0;65535]
 
     @Nullable
     private Request request;
@@ -30,45 +32,31 @@ public class ActivityResultFragment extends Fragment {
         setRetainInstance(true);
     }
 
-    public static ActivityResultFragment newInstance(@NonNull final Intent intent) {
-        return newInstance(RequestFabric.create(intent));
+    public static ActivityResultFragment newInstance(@NonNull final Intent intent, @Nullable ActivityResultListener listener) {
+        return newInstance(RequestFabric.create(intent), listener);
     }
 
-    public static ActivityResultFragment newInstance(@NonNull final Request request) {
-        final Bundle args = new Bundle();
-        args.putParcelable(INTENT_TO_START, request);
+    public static ActivityResultFragment newInstance(@NonNull final Request request, @Nullable ActivityResultListener listener) {
         final ActivityResultFragment fragment = new ActivityResultFragment();
-        fragment.setArguments(args);
+
+        fragment.setRequest(request);
+        fragment.setListener(listener);
+
         return fragment;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final Bundle arguments = getArguments();
-        if (arguments != null) {
-            this.request = arguments.getParcelable(INTENT_TO_START);
-        }
+
+        loadArguments();
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-        if (request != null) {
-            try {
-                request.execute(this, REQUEST_CODE);
-            } catch (Exception e) {
-                e.printStackTrace();
-
-                if (listener != null) {
-                    listener.error(e);
-                }
-            }
-        } else {
-            // this shouldn't happen, but just to be sure
-            removeFragment();
-        }
+        executeRequest();
     }
 
     @Override
@@ -79,11 +67,40 @@ public class ActivityResultFragment extends Fragment {
             if (listener != null) {
                 listener.onActivityResult(requestCode, resultCode, data);
             }
+
             removeFragment();
         }
     }
 
-    void setListener(@Nullable ActivityResultListener listener) {
+    public void executeRequest() {
+        if (request != null) {
+            try {
+                request.execute(this, REQUEST_CODE);
+            } catch (Exception e) {
+                e.printStackTrace();
+
+                if (listener != null) {
+                    listener.error(e);
+                }
+
+                removeFragment();
+            }
+        } else {
+            // this shouldn't happen, but just to be sure
+            if (listener != null) {
+                listener.error(new NullPointerException("request is empty"));
+            }
+            removeFragment();
+        }
+    }
+
+    private void setRequest(@NonNull Request request) {
+        this.request = request;
+
+        saveArguments();
+    }
+
+    private void setListener(@Nullable ActivityResultListener listener) {
         if (listener != null) {
             this.listener = listener;
         }
@@ -95,6 +112,29 @@ public class ActivityResultFragment extends Fragment {
                     .remove(this)
                     .commitAllowingStateLoss();
         }
+    }
+
+    private void loadArguments() {
+        Bundle arguments = getArguments();
+
+        if (arguments != null) {
+            this.request = arguments.getParcelable(INTENT_TO_START);
+        }
+    }
+
+    private void saveArguments() {
+        Bundle args = new Bundle();
+        args.putParcelable(INTENT_TO_START, request);
+
+        setArguments(args);
+    }
+
+    private int checkForValidRequestCode(int requestCode) {
+        if ((requestCode & 0xffff0000) != 0) {
+            throw new IllegalArgumentException("Can only use lower 16 bits for requestCode=" + requestCode);
+        }
+
+        return requestCode;
     }
 
     interface ActivityResultListener {

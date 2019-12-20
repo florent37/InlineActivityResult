@@ -7,6 +7,8 @@
         android:required="true" />
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -23,6 +25,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".examples.ExamplesActivity" />
+        <activity android:name=".examples.multiplestart.MultipleIntentsActivity" />
+        <activity android:name=".examples.request.StringResultActivity" />
+        <activity android:name=".examples.request.ProxyResultActivity" />
+        <activity android:name=".examples.standardbehavior.StandardActivity" />
         <activity android:name=".MainActivityKotlinCoroutine" />
         <activity android:name=".MainActivityKotlin" />
         <activity android:name=".MainActivityRx" />

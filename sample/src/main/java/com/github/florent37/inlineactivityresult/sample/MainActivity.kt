@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.github.florent37.inlineactivityresult.sample.examples.ExamplesActivity
 import com.github.florent37.inlineactivityresult.sample.fragment.*
 import com.github.florent37.runtimepermission.RuntimePermission
 import kotlinx.android.synthetic.main.activity_main.*
@@ -24,6 +25,10 @@ class MainActivity : AppCompatActivity() {
 
         if (supportFragmentManager.fragments.any { it.tag.equals(fragmentTag) && it.isAdded }) {
             menu.visibility = View.GONE
+        }
+
+        commonTestActivity.setOnClickListener {
+            open(ExamplesActivity::class.java)
         }
 
         rxActivity.setOnClickListener {

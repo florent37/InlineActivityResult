@@ -18,6 +18,19 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/commonTestActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Common examples" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
                 android:id="@+id/java7Activity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

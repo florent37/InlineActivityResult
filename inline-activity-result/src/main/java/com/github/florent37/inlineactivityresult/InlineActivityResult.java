@@ -1,12 +1,16 @@
 package com.github.florent37.inlineactivityresult;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 
 import com.github.florent37.inlineactivityresult.callbacks.ActivityResultListener;
 import com.github.florent37.inlineactivityresult.callbacks.FailCallback;
@@ -27,6 +31,7 @@ public class InlineActivityResult {
     private static final String TAG = "ACTIVITY_RESULT_FRAGMENT_WEEEEE";
 
     private final Reference<FragmentActivity> activityReference;
+    private final Reference<Fragment> fragmentReference;
 
     //region callbacks
     private final List<ActivityResultListener> responseListeners = new ArrayList<>();
@@ -74,6 +79,8 @@ public class InlineActivityResult {
         } else {
             this.activityReference = new WeakReference<>(null);
         }
+
+        this.fragmentReference = new WeakReference<>(null);
     }
 
     /**
@@ -83,9 +90,15 @@ public class InlineActivityResult {
      */
     public InlineActivityResult(@Nullable final Fragment fragment) {
         FragmentActivity activity = null;
+
         if (fragment != null) {
             activity = fragment.getActivity();
+
+            this.fragmentReference = new WeakReference<>(fragment);
+        } else {
+            this.fragmentReference = new WeakReference<>(null);
         }
+
         if (activity != null) {
             this.activityReference = new WeakReference<>(activity);
         } else {
@@ -139,8 +152,11 @@ public class InlineActivityResult {
     }
 
     public InlineActivityResult startForResult(@Nullable final Request request, @Nullable final ActivityResultListener listener) {
-        if (request != null && listener != null) {
-            this.responseListeners.add(listener);
+        if (request != null) {
+            if (listener != null) {
+                this.responseListeners.add(listener);
+            }
+
             this.start(request);
         }
         return this;
@@ -175,29 +191,31 @@ public class InlineActivityResult {
     private void start(@NonNull final Request request) {
         final FragmentActivity activity = activityReference.get();
         if (activity == null || activity.isFinishing()) {
+
+            listener.error(new ActivityNotFoundException("activity is null or finished"));
+
             return;
         }
 
-        final ActivityResultFragment oldFragment = (ActivityResultFragment) activity
-                .getSupportFragmentManager()
-                .findFragmentByTag(TAG);
+        final ActivityResultFragment newFragment = ActivityResultFragment.newInstance(request, listener);
 
-        if (oldFragment != null) {
-            oldFragment.setListener(listener);
-        } else {
-            final ActivityResultFragment newFragment = ActivityResultFragment.newInstance(request);
-            newFragment.setListener(listener);
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                FragmentManager fragmentManager;
 
-            activity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    activity.getSupportFragmentManager()
-                            .beginTransaction()
-                            .add(newFragment, TAG)
-                            .commitNowAllowingStateLoss();
+                Fragment fragment = fragmentReference.get();
+                if (fragment != null) {
+                    fragmentManager = fragment.getChildFragmentManager();
+                } else {
+                    fragmentManager = activity.getSupportFragmentManager();
                 }
-            });
 
-        }
+                fragmentManager.beginTransaction()
+                        .add(newFragment, TAG)
+                        .commitNowAllowingStateLoss();
+
+            }
+        });
     }
 }
