@@ -53,9 +53,10 @@ public class ActivityResultFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
+        //Execute Request
         executeRequest();
     }
 
