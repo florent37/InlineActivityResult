@@ -3,10 +3,15 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/GIT-InlineActivityResult.iml" filepath="$PROJECT_DIR$/GIT-InlineActivityResult.iml" />
+      <module fileurl="file://$PROJECT_DIR$/InlineActivityResult.iml" filepath="$PROJECT_DIR$/InlineActivityResult.iml" group="InlineActivityResult" />
       <module fileurl="file://$PROJECT_DIR$/inline-activity-result/InlineActivityResult-inline-activity-result.iml" filepath="$PROJECT_DIR$/inline-activity-result/InlineActivityResult-inline-activity-result.iml" />
       <module fileurl="file://$PROJECT_DIR$/inline-activity-result-kotlin/InlineActivityResult-inline-activity-result-kotlin.iml" filepath="$PROJECT_DIR$/inline-activity-result-kotlin/InlineActivityResult-inline-activity-result-kotlin.iml" />
       <module fileurl="file://$PROJECT_DIR$/inline-activity-result-rx/InlineActivityResult-inline-activity-result-rx.iml" filepath="$PROJECT_DIR$/inline-activity-result-rx/InlineActivityResult-inline-activity-result-rx.iml" />
       <module fileurl="file://$PROJECT_DIR$/sample/InlineActivityResult-sample.iml" filepath="$PROJECT_DIR$/sample/InlineActivityResult-sample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/inline-activity-result/inline-activity-result.iml" filepath="$PROJECT_DIR$/inline-activity-result/inline-activity-result.iml" group="InlineActivityResult/inline-activity-result" />
+      <module fileurl="file://$PROJECT_DIR$/inline-activity-result-kotlin/inline-activity-result-kotlin.iml" filepath="$PROJECT_DIR$/inline-activity-result-kotlin/inline-activity-result-kotlin.iml" group="InlineActivityResult/inline-activity-result-kotlin" />
+      <module fileurl="file://$PROJECT_DIR$/inline-activity-result-rx/inline-activity-result-rx.iml" filepath="$PROJECT_DIR$/inline-activity-result-rx/inline-activity-result-rx.iml" group="InlineActivityResult/inline-activity-result-rx" />
+      <module fileurl="file://$PROJECT_DIR$/sample/sample.iml" filepath="$PROJECT_DIR$/sample/sample.iml" group="InlineActivityResult/sample" />
     </modules>
   </component>
 </project>

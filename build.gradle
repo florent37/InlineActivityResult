@@ -2,9 +2,9 @@
 
 buildscript {
 
-    ext.kotlin_version = '1.3.61'
-    ext.coroutines_version = '1.1.1'
-    ext.rxjava = '2.2.7'
+    ext.kotlin_version = '1.3.71'
+    ext.coroutines_version = '1.3.5'
+    ext.rxjava = '2.2.19'
 
     repositories {
         google()
@@ -12,9 +12,9 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.2'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0'
+        classpath 'com.android.tools.build:gradle:3.6.3'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -33,12 +33,12 @@ ext {
     MIN_SDK = 14
     sourceCompatibilityVersion = JavaVersion.VERSION_1_8
     targetCompatibilityVersion = JavaVersion.VERSION_1_8
-    androidXFragments = "1.0.0"
+    androidXFragments = "1.2.4"
 
     github = 'https://github.com/florent37/InlineActivityResult'
 
     libraryGroup = 'com.github.florent37'
     libraryName = 'inline-activity-result'
-    libraryVersion = "1.0.3"
+    libraryVersion = "1.0.4"
     libraryDescription = 'Inline Activity Result'
 }
