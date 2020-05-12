@@ -14,8 +14,7 @@ android {
     }
 }
 
-dependencies {
-    implementation 'androidx.fragment:fragment:' + project.androidXFragments
+dependencies {implementation 'androidx.fragment:fragment:' + project.androidXFragments
 }
 
 ext {
